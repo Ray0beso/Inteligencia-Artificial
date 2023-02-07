@@ -4,43 +4,86 @@ public class AppArbol {
 
 	public static void main(String[] args) {
 		
-		Arbol<Integer> a = new Arbol<>();
+		Arbol<String> a = new Arbol<String>();
+		String [] nombres = {"Luis", "Pedro", "Carlos", "Juan", "Antonio", "Manuel"};
 		
-		//Prueba método Vacio()
-
+	  //Prueba método Vacio(): boolean
+		
 		if(a.Vacio()) 
 			System.out.println("Arbol vacio");
+		else
+			System.out.println("Arbol no vacio");
+		
+	  //Prueba método BuscarNodo(): Nodo<String> (InOrden)
 		
 		System.out.println();
+		for(String nombre : nombres) {
+			System.out.println(a.buscarNodo(nombre));
+		}
 		
-		//Recorre el arbol en InOrden
-		
-		a.add(5);
-		a.add(6);
-		a.add(3);
-		a.add(1);
-		a.add(4);
-		a.add(2);
+	  //Prueba método Insertar()
 
-		System.out.println("Arbol inorden:");
+		for(String nombre : nombres) {
+			a.Insertar(nombre);
+		}
+
+		System.out.println("\nAhora si se insertaron los nombres");
 		
-		a.InOrden();
+	  //Prueba método Vacio - otra vez
+			
+		System.out.println();
+		if(a.Vacio()) 
+			System.out.println("Arbol vacio");
+		else
+			System.out.println("Arbol NO vacio");
+		
+	  //Prueba método ImprimirArbol()
+
+		System.out.println("\nArbol InOrden:");
+		a.ImprimirArbol();
+		
+	  //Prueba método BuscarNodo - otra vez
+		
+		System.out.println();
+		for(String nombre : nombres) {
+			System.out.println(a.buscarNodo(nombre));
+		}
 
 	}
 	
-	//	CONSOLA:
+	  // CONSOLA:
 	
-/*
-		Arbol vacio
+	/*
 
-		Arbol inorden:
-		1
-		2
-		3
-		4
-		5
-		6
+		Arbol vacio
+		
+		null
+		null
+		null
+		null
+		null
+		null
+		
+		Ahora si se insertaron los nombres
+		
+		Arbol NO vacio
+		
+		Arbol InOrden:
+		Antonio
+		Carlos
+		Juan
+		Luis
+		Manuel
+		Pedro
+		
+		 > Nodo {NodoIzquierda: "Carlos", EsteNodo: "Luis", NodoDerecha: "Pedro"}
+		 > Nodo {NodoIzquierda: "Manuel", EsteNodo: "Pedro", NodoDerecha: null}
+		 > Nodo {NodoIzquierda: "Antonio", EsteNodo: "Carlos", NodoDerecha: "Juan"}
+		 > Nodo {NodoIzquierda: null, EsteNodo: "Juan", NodoDerecha: null}
+		 > Nodo {NodoIzquierda: null, EsteNodo: "Antonio", NodoDerecha: null}
+		 > Nodo {NodoIzquierda: null, EsteNodo: "Manuel", NodoDerecha: null}
+
 	 
-*/
+	 */
 
 }
