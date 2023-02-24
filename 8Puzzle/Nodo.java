@@ -1,20 +1,28 @@
 
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 
-/**
- *
- * @author Mario R�os
- */
+
 public class Nodo {
-    private String estado;
+
+	private String estado;
+    private Nodo padre;
     private Collection<Nodo> hijos;
-    Nodo padre;
+    private long profundidad;
     
     public Nodo(String estado) {
         this.estado = estado;
-        hijos = new ArrayList<>();
+        this.padre = null;
+        this.hijos = null;
+        this.profundidad = 0;
+    }
+    
+    public Nodo(String estado, Nodo padre, long profundidad) {
+        this.estado = estado;
+        this.padre = padre;
+        this.hijos = null;
+        this.profundidad = profundidad;
     }
 
     public String getEstado() {
@@ -22,188 +30,150 @@ public class Nodo {
     }
 
     public Collection<Nodo> getHijos() {
+    	generaHijos();
         return hijos;
     }
-
-    public void agregarHijos(Nodo h) {
-        this.hijos.add(h);
-    }
-
+    
     public Nodo getPadre() {
         return padre;
     }
-
-    public void setPadre(Nodo padre) {
-        this.padre = padre;
-    }
     
-    
-
-    public Collection<String> generaHijos() {
-        //|0|1|2|
-        //|3|4|5|   Indices
-        //|6|7|8|
-    	ArrayList<String>hijosGenerados=new ArrayList<>();
-        int i = estado.indexOf(" ");//Obtengo el indice del espacio
+    private void generaHijos() {
+    	
+        int i = estado.indexOf(" ");
         String estadoTemp;
-        switch(i)
-        {
-        /*
-		Usar los métodos: replace, charAt
-		Otra idea es pasar el String a Matriz, hacer los cambios y luego pasarlo a String... xD		
-		*/
+        
+        if (hijos == null)
+        	hijos = new LinkedList<Nodo>();
+        
+        switch(i) {
             case 0:
       
             	estadoTemp=""+estado.charAt(1)+estado.charAt(0)+estado.charAt(2)+estado.charAt(3)+estado.charAt(4)
             	+estado.charAt(5)+estado.charAt(6)+estado.charAt(7)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
 
             	estadoTemp=""+estado.charAt(3)+estado.charAt(1)+estado.charAt(2)+estado.charAt(0)+estado.charAt(4)
             	+estado.charAt(5)+estado.charAt(6)+estado.charAt(7)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
-            	
-
-               
-                break;
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
+            break;
+                
             case 1:
             	estadoTemp=""+estado.charAt(1)+estado.charAt(0)+estado.charAt(2)+estado.charAt(3)+estado.charAt(4)
             	+estado.charAt(5)+estado.charAt(6)+estado.charAt(7)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
             	
             	estadoTemp=""+estado.charAt(0)+estado.charAt(2)+estado.charAt(1)+estado.charAt(3)+estado.charAt(4)
             	+estado.charAt(5)+estado.charAt(6)+estado.charAt(7)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
             	
             	estadoTemp=""+estado.charAt(0)+estado.charAt(4)+estado.charAt(2)+estado.charAt(3)+estado.charAt(1)
             	+estado.charAt(5)+estado.charAt(6)+estado.charAt(7)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
-
-            
-                break;
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
+            break;
+                
             case 2:
             	estadoTemp=""+estado.charAt(0)+estado.charAt(2)+estado.charAt(1)+estado.charAt(3)+estado.charAt(4)
             	+estado.charAt(5)+estado.charAt(6)+estado.charAt(7)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
 
             	estadoTemp=""+estado.charAt(0)+estado.charAt(1)+estado.charAt(5)+estado.charAt(3)+estado.charAt(4)
             	+estado.charAt(2)+estado.charAt(6)+estado.charAt(7)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
-
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
+            break;
             	
-            	break;
             case 3:
             	estadoTemp=""+estado.charAt(3)+estado.charAt(1)+estado.charAt(2)+estado.charAt(0)+estado.charAt(4)
             	+estado.charAt(5)+estado.charAt(6)+estado.charAt(7)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
 
             	estadoTemp=""+estado.charAt(0)+estado.charAt(1)+estado.charAt(2)+estado.charAt(4)+estado.charAt(3)
             	+estado.charAt(5)+estado.charAt(6)+estado.charAt(7)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
 
             	estadoTemp=""+estado.charAt(0)+estado.charAt(1)+estado.charAt(2)+estado.charAt(6)+estado.charAt(4)
             	+estado.charAt(5)+estado.charAt(3)+estado.charAt(7)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
-
-            	break;
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
+            break;
+            	
             case 4: 
             	estadoTemp=""+estado.charAt(0)+estado.charAt(4)+estado.charAt(2)+estado.charAt(3)+estado.charAt(1)
             	+estado.charAt(5)+estado.charAt(6)+estado.charAt(7)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
 
             	estadoTemp=""+estado.charAt(0)+estado.charAt(1)+estado.charAt(2)+estado.charAt(4)+estado.charAt(3)
             	+estado.charAt(5)+estado.charAt(6)+estado.charAt(7)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
 
             	estadoTemp=""+estado.charAt(0)+estado.charAt(1)+estado.charAt(2)+estado.charAt(3)+estado.charAt(5)
             	+estado.charAt(4)+estado.charAt(6)+estado.charAt(7)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
             	
             	estadoTemp=""+estado.charAt(0)+estado.charAt(1)+estado.charAt(2)+estado.charAt(3)+estado.charAt(7)
             	+estado.charAt(5)+estado.charAt(6)+estado.charAt(4)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
-
-
-            	break;
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
+            break;
+            	
             case 5:
             	estadoTemp=""+estado.charAt(0)+estado.charAt(1)+estado.charAt(5)+estado.charAt(3)+estado.charAt(4)
             	+estado.charAt(2)+estado.charAt(6)+estado.charAt(7)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
 
             	estadoTemp=""+estado.charAt(0)+estado.charAt(1)+estado.charAt(2)+estado.charAt(3)+estado.charAt(5)
             	+estado.charAt(4)+estado.charAt(6)+estado.charAt(7)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
 
             	estadoTemp=""+estado.charAt(0)+estado.charAt(1)+estado.charAt(2)+estado.charAt(3)+estado.charAt(4)
             	+estado.charAt(8)+estado.charAt(6)+estado.charAt(7)+estado.charAt(5);
-            	hijosGenerados.add(estadoTemp);
-
-            	break;
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
+            break;
+            	
             case 6:
             	estadoTemp=""+estado.charAt(0)+estado.charAt(1)+estado.charAt(2)+estado.charAt(6)+estado.charAt(4)
             	+estado.charAt(5)+estado.charAt(3)+estado.charAt(7)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
             	
             	estadoTemp=""+estado.charAt(0)+estado.charAt(1)+estado.charAt(2)+estado.charAt(3)+estado.charAt(4)
             	+estado.charAt(5)+estado.charAt(7)+estado.charAt(6)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
-            	break;
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
+            break;
+            	
             case 7:
             	estadoTemp=""+estado.charAt(0)+estado.charAt(1)+estado.charAt(2)+estado.charAt(3)+estado.charAt(4)
             	+estado.charAt(5)+estado.charAt(7)+estado.charAt(6)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
             	
             	estadoTemp=""+estado.charAt(0)+estado.charAt(1)+estado.charAt(2)+estado.charAt(3)+estado.charAt(7)
             	+estado.charAt(5)+estado.charAt(6)+estado.charAt(4)+estado.charAt(8);
-            	hijosGenerados.add(estadoTemp);
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
             	
             	estadoTemp=""+estado.charAt(0)+estado.charAt(1)+estado.charAt(2)+estado.charAt(3)+estado.charAt(4)
             	+estado.charAt(5)+estado.charAt(6)+estado.charAt(8)+estado.charAt(7);
-            	hijosGenerados.add(estadoTemp);
-            	break;
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
+            break;
+            	
             case 8:
             	estadoTemp=""+estado.charAt(0)+estado.charAt(1)+estado.charAt(2)+estado.charAt(3)+estado.charAt(4)
             	+estado.charAt(5)+estado.charAt(6)+estado.charAt(8)+estado.charAt(7);
-            	hijosGenerados.add(estadoTemp);
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
             	
             	estadoTemp=""+estado.charAt(0)+estado.charAt(1)+estado.charAt(2)+estado.charAt(3)+estado.charAt(4)
             	+estado.charAt(8)+estado.charAt(6)+estado.charAt(7)+estado.charAt(5);
-            	hijosGenerados.add(estadoTemp);
-            	break;
+            	hijos.add(new Nodo(estadoTemp, this, profundidad + 1 ));
+            break;
        }
         
-        
-        return hijosGenerados;
     }
-    
-    public String imprimir() {
-       Nodo n = this;
-  	   String salida = "";
- 	   do {
-         	salida = n+"\n"+salida;
-         	n = n.getPadre();
-        }while(n != null);
- 	   return salida;
- 	  
-   }
     
 	@Override
 	public String toString() {
-		return "    |\n"
+		return "Nivel: " + profundidad + "\n"
+			  +"    |\n"
 			  +"    V\n"
 			  +" |"+estado.charAt(0)+"|"+estado.charAt(1)+"|"+estado.charAt(2)+"|\n"
 			  +" |"+estado.charAt(3)+"|"+estado.charAt(4)+"|"+estado.charAt(5)+"|\n"
 			  +" |"+estado.charAt(6)+"|"+estado.charAt(7)+"|"+estado.charAt(8)+"|\n";
 	}
     
+    
 }
-
-
-
-
-
-
-
-
-
-
-
