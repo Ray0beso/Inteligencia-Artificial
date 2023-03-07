@@ -98,7 +98,7 @@ public class ArbolBusqueda {
         }
         nObjetivo = nodoActual;
     }
-    
+    /*
     public Comparator<Nodo> comparator() {
         Comparator<Nodo> c = new Comparator<Nodo>() {
             @Override
@@ -107,6 +107,17 @@ public class ArbolBusqueda {
             }
         };
         return c;
+    }
+    */
+    public Comparator<Nodo> comparator() {
+    	Comparator<Nodo> c = new Comparator<Nodo>() {
+			@Override
+			public int compare(Nodo n, Nodo n2) {
+				return n.ValorHeuristico(objetivo) < n2.ValorHeuristico(objetivo) ? -1 : 1 ;
+			}
+    	};
+    	return c;	
+    	
     }
 
     private void LimpiarArbol() {

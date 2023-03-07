@@ -171,7 +171,7 @@ public class Nodo {
         
     }
 
-      public int ValorHeuristico(String objetivo) {
+	public int ValorHeuristico(String objetivo) {
 		switch(heuristica) {
 			case 1:
 				return Heuristica1(objetivo);
