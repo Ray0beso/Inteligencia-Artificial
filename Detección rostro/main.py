@@ -10,13 +10,11 @@ from keras.layers import Conv2D, MaxPooling2D, Dense, Dropout, Flatten
 import matplotlib.pyplot as plt
 from PIL import Image
 
-num_classes = 4
-
 def cargar_imagenes_y_etiquetas(carpeta, etiqueta):
     datos = []
     for imagen_nombre in os.listdir(carpeta):
         imagen_ruta = os.path.join(carpeta, imagen_nombre)
-        imagen = Image.open(imagen_ruta).resize((100, 100))  # Cambia el tamaño de las imágenes según sea necesario
+        imagen = Image.open(imagen_ruta).resize((100, 100)) 
         imagen_array = np.array(imagen)
         datos.append([imagen_array, etiqueta])
     return datos
@@ -129,8 +127,8 @@ print(x_train.shape[0], 'train samples')
 print(x_test.shape[0], 'test samples')
 print(x_train[0])
 
-y_train = keras.utils.to_categorical(y_train, num_classes)
-y_test = keras.utils.to_categorical(y_test, num_classes)
+y_train = keras.utils.to_categorical(y_train, 1)
+y_test = keras.utils.to_categorical(y_test, 1)
 print(y_train[1000:1020])
 
 batch_size = 128
